@@ -28,36 +28,62 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-const generateHint = (guess, solution) => {
-  // create variables solutionArray and guessArray that each split up passed in arguement
-  let solutionArray = solution.slice("");
-  let guessArray = guess.slice("");
+const generateHint = (guess) => {
+  // clean the input
+  guess = guess.trim().toLowerCase()
 
-  //create a variable correctLetterLocations and set it to 0
+  // spec 2.1
+  let solutionArray = [];
+  solutionArray = solution.split('')
+  let guessArray = []
+  guessArray = guess.split('')
+
+  //spec 2.2
   let correctLetterLocations = 0;
 
-  //In a for loop, iterate over the solutionArray, comparing each index of solutionArray against the same index of guessArray. If the item matches, increment correctLetterLocations, and set that index in solutionArray to null
   for (let i = 0; i < solutionArray.length; i++) {
-    //if the value at the index of the solution array =
-    //value of index of guess array
-
-    if (solutionArray[i] === guessArray[i]) {
+    if (solutionArray[i] == guessArray[i]) {
       correctLetterLocations++;
       solutionArray[i] = null;
     }
   }
+
+  // spec 2.3
+  let correctLetters = 0;
+
+  for (let i = 0; i < solutionArray.length; i++) {
+    let targetIndex = solutionArray.indexOf(guessArray[i]);
+
+    if (targetIndex > -1) {
+      correctLetters++;
+      solutionArray[i] = null;
+    }
+  }
+
+  //spec 2.4
+  return `${correctLetterLocations} - ${correctLetters}`;
 };
 
 const mastermind = (guess) => {
   solution = "abcd"; // Comment this out to generate a random solution
-  // your code here
 
-  //bring the guess from the console and compare it to the solutoin, letter by letter
-  guess = guess.trim().toLowerCase();
+  //spec 3
+  let hint = generateHint(guess);
+  board.push(`${guess}, ${hint}`);
+
+  //if the guess you passed in equals the solution, return 'you guess it'
   if (guess === solution) {
     console.log("You Guessed It!");
+  } else {
+    //if the board length equeals 10, return 'you ran out of turns! the solution was' and the solution.
+    if (board.length > 10) {
+      console.log(`You ran out of turns! The solution was ${solution}`);
+      return `You ran out of turns! The solution was ${solution}`;
+    } else {
+      console.log("Guess Again");
+      return "Guess Again";
+    }
   }
-  //if the guess you passed in equals the solution, return 'you guess it'
 };
 
 const getPrompt = () => {
