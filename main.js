@@ -68,23 +68,23 @@ const mastermind = (guess) => {
   solution = "abcd"; // Comment this out to generate a random solution
 
   //spec 3
-  let hint = generateHint(guess);
-  board.push(`${guess}, ${hint}`);
+  let hint = generateHint(guess)
+  board.push(`${guess}, ${hint}`)
 
   //if the guess you passed in equals the solution, return 'you guess it'
   if (guess === solution) {
-    console.log("You Guessed It!");
+    console.log("You Guessed It!")
   } else {
     //if the board length equeals 10, return 'you ran out of turns! the solution was' and the solution.
     if (board.length > 10) {
-      console.log(`You ran out of turns! The solution was ${solution}`);
-      return `You ran out of turns! The solution was ${solution}`;
+      console.log(`You ran out of turns! The solution was ${solution}`)
+      return `You ran out of turns! The solution was ${solution}`
     } else {
-      console.log("Guess Again");
-      return "Guess Again";
+      console.log("Guess Again")
+      return "Guess Again"
     }
   }
-};
+}
 
 const getPrompt = () => {
   rl.question("guess: ", (guess) => {
